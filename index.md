@@ -59,7 +59,7 @@ headless = true\n\
 " > ~/.streamlit/config.toml
 ```
 
-Try it
+
 ```
-(https://simple-stock-price-app.herokuapp.com/)
+[Try it] (https://simple-stock-price-app.herokuapp.com/)
 ```
