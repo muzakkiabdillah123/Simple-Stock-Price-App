@@ -1,37 +1,63 @@
-## Welcome to GitHub Pages
+## Overview
 
-You can use the [editor on GitHub](https://github.com/muzakkiabdillah123/Simple-Stock-Price-App/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+This mini project contain three files
+```
+1. 1_stock.py
+2. Procfile
+3. setup.sh
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### 1_stock.py
+```
+import streamlit as st
+import yfinance as yf
+import pandas as pd
 
-### Jekyll Themes
+st.write("""
+# Simple Stock Price App
+""")
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/muzakkiabdillah123/Simple-Stock-Price-App/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+st.header('Enter Stock Name')
 
-### Support or Contact
+ticker_symbol_input = 'MSFT'
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+ticker_symbol = st.text_area(
+    "Stock name input", ticker_symbol_input, height=10)
+
+tickerData = yf.Ticker(ticker_symbol)
+
+tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
+
+st.write("""
+## Closing Price
+""")
+st.line_chart(tickerDf.Close)
+
+st.write("""
+## Volume
+""")
+st.line_chart(tickerDf.Volume)
+
+tickerData.calendar
+```
+
+### Procfile
+```
+web: sh setup.sh && streamlit run 1_stock.py
+```
+
+### setup.sh
+```
+mkdir -p ~/.streamlit/
+
+echo "\
+[server]\n\
+port = $PORT\n\
+enableCORS = false\n\
+headless = true\n\
+\n\
+" > ~/.streamlit/config.toml
+```
+
+Try it
+https://simple-stock-price-app.herokuapp.com/
