@@ -60,4 +60,6 @@ headless = true\n\
 ```
 
 Try it
-https://simple-stock-price-app.herokuapp.com/
+```
+(https://simple-stock-price-app.herokuapp.com/)
+```
